@@ -1,0 +1,17 @@
+<%% @page_title = '<%= singular_name.titleize %> Details' %>
+
+<div class="span9">
+  <%%= render 'breadcrumb' %>
+  <div class="page-header">
+    <h2><%%= @<%= file_name %>.<%= name_attribute(class_name.constantize) %> %></h2>
+  </div>
+  <dl class="dl-horizontal">
+<% columns.each do |column| -%>
+    <dt><%= column.name.humanize %></dt>
+    <dd><%%= @<%= file_name %>.<%= column.name %> %></dd>
+<% end -%>
+  </dl>
+</div>
+<div class="span3">
+  <%%= render 'sidebar' %>
+</div>

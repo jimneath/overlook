@@ -1,0 +1,44 @@
+<%% @page_title = '<%= plural_name.titleize %>' %>
+
+<div class="span9">
+  <%%= render 'breadcrumb' %>
+  <div class="page-header">
+    <h2><%= plural_name.titleize %></h2>
+  </div>
+  <%% if @<%= table_name %>.present? %>
+    <%% if params[:q].present? %>
+      <div class="alert">
+        Showing search results for <strong><%%= params[:q] %></strong>
+      </div>
+    <%% end %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+<% listing_columns.each do |column| -%>
+<% if column.name[/_id$/] -%>
+          <th><%%= sorty('<%= (relation = column.name[/^(.*)_id$/, 1]) %>.<%= name_attribute(relation.classify.constantize) %>', label: '<%= column.name[/^(.*)_id$/, 1].titleize %>') %></th>
+<% elsif column.type == :boolean -%>
+          <th class="center"><%%= sorty(:<%= column.name %>) %></th>
+<% elsif [:integer, :float].include?(column.type) -%>
+          <th class="right"><%%= sorty(:<%= column.name %>) %></th>
+<% else -%>
+          <th><%%= sorty(:<%= column.name %>) %></th>
+<% end -%>
+<% end -%>
+          <th class="options"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%%= render(@<%= table_name %>) %>
+      </tbody>
+    </table>
+    <%%= paginate(@<%= table_name %>, theme: 'admin') %>
+  <%% else %>
+    <div class="alert">
+      There are currently no <%= plural_name %> <%% if params[:q] %>for <strong><%%= params[:q] %></strong><%% end %>
+    </div>
+  <%% end %>
+</div>
+<div class="span3">
+  <%%= render 'sidebar' %>
+</div>

@@ -1,0 +1,14 @@
+<ul class="breadcrumb">
+  <li><a href="/admin">Admin</a> <span class="divider">/</span></li>
+  <%% if params[:action] != 'index' %>
+    <%% if params[:action] == 'show' %>
+      <li><a href="/admin/<%= table_name %>"><%= plural_name.titleize %></a> <span class="divider">/</span></li>
+      <li class="active"><%%= @<%= file_name %>.<%= name_attribute(class_name.constantize) %> %></li>
+    <%% else %>
+      <li><a href="/admin/<%= table_name %>"><%= plural_name.titleize %></a> <span class="divider">/</span></li>
+      <li class="active"><%%= params[:action].titleize %></li>
+    <%% end %>
+  <%% else %>
+    <li class="active"><%= plural_name.titleize %></li>
+  <%% end %>
+</ul>

@@ -1,0 +1,21 @@
+<%%= simple_form_for([:admin, @<%= file_name %>], html: { multipart: true, class: 'form-horizontal' }) do |f| %>
+<% columns.each do |column| -%>
+<% if column.type == :text -%>
+  <%%= f.input :<%= column.name %>, as: :text, input_html: { rows: 10, columns: 100, class: 'span6' } %>
+<% elsif [:string].include?(column.type) -%>
+  <%%= f.input :<%= column.name %>, as: :<%= column.type %>, input_html: { class: 'span4' } %>
+<% elsif (association = column.name[/^(.*)_id$/, 1]) -%>
+  <%%= f.association :<%= association %>, input_html: { class: 'span2' } %>
+<% elsif [:integer].include?(column.type) -%>
+  <%%= f.input :<%= column.name %>, as: :<%= column.type %>, input_html: { class: 'span1' } %>
+<% elsif [:date, :datetime].include?(column.type) -%>
+  <%%= f.input :<%= column.name %>, as: :<%= column.type %>, order: [:day, :month, :year], input_html: { class: 'span1' } %>
+<% else -%>
+  <%%= f.input :<%= column.name %>, as: :<%= column.type %> %>
+<% end -%>
+<% end -%>
+  <div class="form-actions">
+    <%%= f.button :submit, class: 'btn btn-primary' %>
+    <%%= link_to('Cancel', admin_<%= table_name %>_path, class: 'btn') %>
+  </div>
+<%% end %>

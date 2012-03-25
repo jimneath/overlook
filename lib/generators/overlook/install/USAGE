@@ -1,0 +1,5 @@
+Description:
+    Installs the assets needed for the generated admin
+
+Example:
+    rails generate overlook

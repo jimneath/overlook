@@ -1,0 +1,12 @@
+<%% @page_title = 'New <%= singular_name.titleize %>' %>
+
+<div class="span9">
+  <%%= render 'breadcrumb' %>
+  <div class="page-header">
+    <h2>New <%= plural_name.titleize %></h2>
+  </div>
+  <%%= render 'form' %>
+</div>
+<div class="span3">
+  <%%= render 'sidebar' %>
+</div>

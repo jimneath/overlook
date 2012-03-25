@@ -1,0 +1,30 @@
+<div class="well sidebar">
+  <ul class="nav nav-list">
+    <li class="nav-header">
+      <%= singular_name.titleize %> Options
+    </li>
+    <li> 
+      <a href="<%%= admin_<%= table_name %>_path %>"><i class="icon-list"></i> List <%= plural_name %></a>
+    </li>
+    <li> 
+      <a href="<%%= new_admin_<%= file_name %>_path %>"><i class="icon-plus"></i> New <%= singular_name %></a>
+    </li>
+    <li> 
+      <a href="<%%= admin_<%= table_name %>_path(format: :csv) %>"><i class="icon-download"></i> Download CSV</a>
+    </li>
+    <%% if params[:action] == 'edit' %>
+      <li> 
+        <a href="<%%= admin_<%= file_name %>_path(@<%= file_name %>) %>"><i class="icon-search"></i> View this <%= singular_name %></a>
+      </li>
+    <%% end %>
+    <%% if params[:action] == 'show' %>
+      <li> 
+        <a href="<%%= edit_admin_<%= file_name %>_path(@<%= file_name %>) %>"><i class="icon-pencil"></i> Edit this <%= singular_name %></a>
+      </li>
+    <%% end %>
+  </ul>
+</div>
+<form class="form-search well" action="<%%= admin_<%= table_name %>_path %>">
+  <input type="text" class="input-medium search-query" name="q" value="<%%= params[:q] %>" placeholder="Search <%= plural_name %>...">
+  <button type="submit" class="btn btn-primary">Go</button>
+</form>

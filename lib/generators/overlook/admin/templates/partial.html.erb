@@ -1,0 +1,30 @@
+<tr id="<%%= dom_id(<%= file_name %>) %>">
+<% listing_columns.each do |column| -%>
+<% if column.name[/email/] -%>
+  <td><%%= mail_to(<%= file_name %>.<%= column.name %>) %></td>
+<% elsif column.name[/url|website/] -%>
+  <td><%%= link_to(<%= file_name %>.<%= column.name %>, <%= file_name %>.<%= column.name %>, target: '_blank') %></td>
+<% elsif (relation = column.name[/^(.*)_id$/, 1]) -%>
+  <td><%%= <%= file_name %>.<%= column.name[/^(.*)_id$/, 1] %>.<%= name_attribute(relation.classify.constantize) %> %></td>
+<% elsif column.type == :date -%>
+  <td><%%= <%= file_name %>.<%= column.name %>.strftime('%d/%m/%Y') %></td>
+<% elsif column.type == :datetime -%>
+  <td><%%= <%= file_name %>.<%= column.name %>.strftime('%d/%m/%Y %H:%M') %></td>
+<% elsif column.type == :boolean -%>
+  <td class="center"><%%= <%= file_name %>.<%= column.name %> ? 'Yes' : 'No' %></td>
+<% elsif column.type == :text -%>
+  <td><%%= <%= file_name %>.<%= column.name %>.truncate(30) %></td>
+<% elsif [:integer, :float].include?(column.type) -%>
+  <td class="right"><%%= <%= file_name %>.<%= column.name %> %></td>
+<% else -%>
+  <td><%%= <%= file_name %>.<%= column.name %> %></td>
+<% end -%>
+<% end -%>
+  <td class="options">
+    <div class="btn-group">
+      <%%= link_to('view', [:admin, <%= file_name %>], class: 'btn btn-mini') %>
+      <%%= link_to('edit', [:edit, :admin, <%= file_name %>], class: 'btn btn-mini') %>
+      <%%= link_to('delete', [:admin, <%= file_name %>], method: :delete, remote: true, confirm: 'Are you sure?', class: 'btn btn-mini btn-danger') %>
+    </div>
+  </td>
+</tr>
